@@ -1,0 +1,28 @@
+{
+  "name": "user_interface_programming-project",
+  "version": "1.0.0",
+  "description": "MERN",
+  "homepage": "https://github.com/Manasmkb/User_Interface_Programming-Project#readme",
+  "bugs": {
+    "url": "https://github.com/Manasmkb/User_Interface_Programming-Project/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Manasmkb/User_Interface_Programming-Project.git"
+  },
+  "license": "ISC",
+  "author": "Manas Banerjee",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
