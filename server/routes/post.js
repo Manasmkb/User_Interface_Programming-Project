@@ -23,15 +23,15 @@ router
 }})
 
 .patch('/updatePost', async(req, res) => {try{
-    const post = await Post.updatePost(req.body.id, req.body.createdAt, req.body.content); // returns promise content (not wrapped promise)
+    const post = await Post.updatePost(req.body.userId, req.body.createdAt, req.body.content); // returns promise content (not wrapped promise)
     res.send(post); // Send the result object describing the update operation info.
 } catch(error){
     res.status(401).send({message: error.message});
 }})
 
 .delete('/deletePost', async(req, res) => {try{
-    await Post.deletePost(req.body.id); // returns promise content (not wrapped promise)
-    res.send({message: "Post deleted"});
+    await Post.deletePost(req.body.userId); // delete posts by user id
+    res.send({message: "Posts deleted"});
 } catch(error){
         res.status(401).send({message: error.message});
 }})

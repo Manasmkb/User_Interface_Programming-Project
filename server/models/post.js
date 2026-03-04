@@ -29,14 +29,14 @@ async function getPostsByAuthor(authorId) {
  
 
 // Update Post
-async function updatePost(id, createdAt, content) {
-    const post = await Post.updateOne({"_id": id, "createdAt": createdAt}, {$set:{content: content}});
+async function updatePost(userId, createdAt, content) {
+    const post = await Post.updateOne({"authorId": userId, "createdAt": createdAt}, {$set:{content: content}});
     return post; // A result object describing the update operation info.
 }
 
-// Delete Post
-async function deletePost(id) {
-    await Post.deleteOne({"_id": id});
+// Delete Posts by User Id
+async function deletePost(userId) {
+    await Post.deleteMany({"authorId": userId});
 }
 
 
