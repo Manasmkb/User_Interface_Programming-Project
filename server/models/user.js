@@ -20,8 +20,8 @@ async function register(username, password) {
         username: username,
         password: password
     });
-
-    return newUser;
+    const {password: leaveIt, ...secureUser } = newUser._doc;
+    return secureUser; // return the document content (not wrapped promise)
 }
 
 // Login User
@@ -29,7 +29,8 @@ async function login(username, password) {
     const user = await getUser(username); // get the promise content (not wrapped promise)
     if(!user) throw new Error("User not found");
     if(user.password !== password) throw new Error("Wrong password");
-    return user;
+    const {password: leaveIt, ...secureUser } = user._doc;
+    return secureUser; // return the document content (not wrapped promise)
 }   
 
 // Update
