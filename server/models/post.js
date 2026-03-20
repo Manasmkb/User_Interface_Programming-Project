@@ -3,7 +3,7 @@ const mongoose=require("mongoose");
 const postSchema = new mongoose.Schema({
 content:{type:String, trim:true, required:true, maxlength:5000},
 authorId:{type:mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-authorName:{type:String, unique:true, required:true},
+authorName:{type:String, required:true},
 createdAt:{type:Date, default:Date.now}
 })
 
