@@ -25,5 +25,5 @@ app.use(function(req, res, next) {
 app.use('/user', userRoutes); // Use the user routes for any URL starting with /user
 app.use('/post', postRoutes); // Use the post routes for any URL starting with /post
 
-const PORT = process.env.PORT || 3000; // process.env.PORT or 3000
+const PORT = process.env.PORT || 5000; // process.env.PORT or 5000
 app.listen(PORT, () => console.log(`Server started on port ${PORT}!`));

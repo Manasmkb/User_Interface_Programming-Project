@@ -1,0 +1,109 @@
+/* Background: soft gradient (calm + modern) */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #dbeafe, #f0f9ff);
+}
+
+/* Navbar styling */
+.custom-navbar {
+  background: linear-gradient(90deg, #1e3a8a, #2563eb);
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.nav-link {
+  color: #e0f2fe !important;
+  margin-left: 15px;
+}
+
+.nav-link:hover {
+  color: #ffffff !important;
+}
+
+/* Layout */
+.main-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 50px;
+  flex-wrap: wrap;
+}
+
+/* Card style (glassmorphism effect) */
+.form-card {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 25px;
+  width: 300px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Inputs */
+.input-style {
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+  background-color: #f1f5f9;
+}
+
+/* Buttons */
+.btn-style {
+  border-radius: 10px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.btn-style:hover {
+  transform: scale(1.03);
+}
+
+
+
+
+
+
+
+
+/* .App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
