@@ -8,8 +8,6 @@ const userRoutes = require("./server/routes/user"); // A router object containin
 
 const postRoutes = require("./server/routes/post"); // A router object containing the post routes
 
-mongoose.connect(process.env.dbURL).then(console.log("DB Connected ! !")).catch(error=> console.log(error));
-
 app.use(express.json()); // JSON body to JS objects
 
 app.use(express.static(__dirname + "/public")); // __dirname: Current directory with index.js
@@ -26,4 +24,17 @@ app.use('/user', userRoutes); // Use the user routes for any URL starting with /
 app.use('/post', postRoutes); // Use the post routes for any URL starting with /post
 
 const PORT = process.env.PORT || 5000; // process.env.PORT or 5000
-app.listen(PORT, () => console.log(`Server started on port ${PORT}!`));
+
+async function startServer() {
+    try {
+        await mongoose.connect(process.env.dbURL);
+        await mongoose.model("Post").syncIndexes();
+        console.log("DB Connected ! !");
+        app.listen(PORT, () => console.log(`Server started on port ${PORT}!`));
+    } catch (error) {
+        console.error("MongoDB connection failed:", error.message);
+        process.exit(1);
+    }
+}
+
+startServer();
