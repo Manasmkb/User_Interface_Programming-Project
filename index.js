@@ -7,6 +7,7 @@ const path = require('path');
 const userRoutes = require("./server/routes/user"); // A router object containing the user routes
 
 const postRoutes = require("./server/routes/post"); // A router object containing the post routes
+const aiRoutes = require("./server/routes/ai");
 
 app.use(express.json()); // JSON body to JS objects
 
@@ -22,6 +23,7 @@ app.use(function(req, res, next) {
 
 app.use('/user', userRoutes); // Use the user routes for any URL starting with /user
 app.use('/post', postRoutes); // Use the post routes for any URL starting with /post
+app.use('/ai', aiRoutes);
 
 const PORT = process.env.PORT || 5000; // process.env.PORT or 5000
 

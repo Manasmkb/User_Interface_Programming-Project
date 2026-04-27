@@ -10,6 +10,7 @@ const Navbar = () => {
       <Link className="navbar-brand" to="/">MyApp</Link>
 
       <div className="navbar-nav ms-auto">
+        <Link className="nav-link" to="/reaction-game">Game</Link>
         {user?.authenticated ? (
           <Link className="nav-link" to="/profile">Profile</Link>
         ) : (
