@@ -3,6 +3,9 @@ const express = require("express"); // a function reference
 const app = express(); // a function object
 const mongoose=require("mongoose");
 const path = require('path');
+// Don't buffer mongoose model commands while waiting for a connection;
+// this makes DB ops fail fast instead of hanging for bufferTimeoutMS.
+mongoose.set('bufferCommands', false);
 
 const userRoutes = require("./server/routes/user"); // A router object containing the user routes
 
@@ -28,14 +31,15 @@ app.use('/ai', aiRoutes);
 const PORT = process.env.PORT || 5000; // process.env.PORT or 5000
 
 async function startServer() {
+    app.listen(PORT, () => console.log(`Server started on port ${PORT}!`));
+
     try {
         await mongoose.connect(process.env.dbURL);
         await mongoose.model("Post").syncIndexes();
         console.log("DB Connected ! !");
-        app.listen(PORT, () => console.log(`Server started on port ${PORT}!`));
     } catch (error) {
         console.error("MongoDB connection failed:", error.message);
-        process.exit(1);
+        console.warn("Server is still running, but database-backed routes will fail until MongoDB is reachable.");
     }
 }
 

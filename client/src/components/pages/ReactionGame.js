@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect, useRef } from "react";
 
 const COLORS = [
   { name: "RED", hex: "#ef4444" },
@@ -41,6 +41,9 @@ const ReactionGame = () => {
   const [round, setRound] = useState(1);
   const [prompt, setPrompt] = useState(createPrompt);
   const [roundStartAt, setRoundStartAt] = useState(0);
+  // Time limit per round in milliseconds. Set to a challenging value by default.
+  const [roundTimeLimitMs] = useState(2000);
+  const [timeLeftMs, setTimeLeftMs] = useState(0);
   const [reactionTimes, setReactionTimes] = useState([]);
   const [correctCount, setCorrectCount] = useState(0);
   const [lastResult, setLastResult] = useState("");
@@ -76,6 +79,8 @@ const ReactionGame = () => {
     setRound(1);
     setPrompt(createPrompt());
     setRoundStartAt(performance.now());
+    setTimeLeftMs(roundTimeLimitMs);
+    answeredRef.current = false;
     setReactionTimes([]);
     setCorrectCount(0);
     setLastResult("");
@@ -84,9 +89,18 @@ const ReactionGame = () => {
     setCoachSource("");
     setCoachError("");
   };
-
   const answerRound = (selectedName) => {
     if (!started || finished) return;
+
+    // ignore duplicate answers for the same round (prevents click+timeout races)
+    if (answeredRef.current) return;
+    answeredRef.current = true;
+
+    // ensure any running interval is cleared before advancing round
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
 
     const elapsed = Math.max(0, Math.round(performance.now() - roundStartAt));
     const isCorrect = selectedName === prompt.inkName;
@@ -106,10 +120,46 @@ const ReactionGame = () => {
       if (next <= TOTAL_ROUNDS) {
         setPrompt(createPrompt());
         setRoundStartAt(performance.now());
+        setTimeLeftMs(roundTimeLimitMs);
+        answeredRef.current = false;
       }
       return next;
     });
   };
+
+  // Countdown timer effect: updates `timeLeftMs` and triggers timeout when reaching 0
+  const timerRef = useRef(null);
+  const answeredRef = useRef(false);
+  useEffect(() => {
+    if (!started || finished) {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+      return;
+    }
+
+    setTimeLeftMs(Math.max(0, Math.round(roundTimeLimitMs - (performance.now() - roundStartAt))));
+
+    timerRef.current = setInterval(() => {
+      const remaining = Math.max(0, Math.round(roundTimeLimitMs - (performance.now() - roundStartAt)));
+      setTimeLeftMs(remaining);
+      if (remaining <= 0) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+        // treat as timeout (pass null)
+        answerRound(null);
+      }
+    }, 50);
+
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [roundStartAt, started, finished]);
 
   const getAiCoach = async () => {
     setCoachLoading(true);
@@ -149,7 +199,7 @@ const ReactionGame = () => {
 
         {!started ? (
           <button type="button" className="btn btn-primary" onClick={beginGame}>
-            Start 10-Round Game
+            Play it 😊: Color Reaction
           </button>
         ) : null}
 
@@ -158,6 +208,7 @@ const ReactionGame = () => {
             <div className="stroop-meta">
               <span>Round {round} / {TOTAL_ROUNDS}</span>
               <span>Correct: {correctCount}</span>
+              <span>Time left: <strong>{timeLeftMs}ms</strong></span>
             </div>
 
             <div className="stroop-word" style={{ color: prompt.inkHex }}>

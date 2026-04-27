@@ -16,7 +16,7 @@ const Home = () => (
         A clean, distraction-free place to post updates, connect with people, and keep your ideas alive.
       </p>
       <div className="home-actions">
-        <Link className="btn btn-lg home-btn home-btn-play" to="/reaction-game">Play color clash: GAME</Link>
+        <Link className="btn btn-lg home-btn home-btn-play" to="/reaction-game">Play game: Color Reaction 😊</Link>
         <Link className="btn btn-primary btn-lg home-btn" to="/register">Get Started</Link>
         <Link className="btn btn-outline-primary btn-lg home-btn" to="/login">Login</Link>
       </div>
