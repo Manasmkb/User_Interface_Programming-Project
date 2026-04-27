@@ -7,18 +7,7 @@ const COLORS = [
   { name: "YELLOW", hex: "#eab308" },
   { name: "PURPLE", hex: "#8b5cf6" },
   { name: "ORANGE", hex: "#f97316" },
-  { name: "PINK", hex: "#ec4899" },
-  { name: "CYAN", hex: "#06b6d4" },
-  { name: "LIME", hex: "#84cc16" },
-  { name: "INDIGO", hex: "#6366f1" },
-  { name: "TEAL", hex: "#14b8a6" },
-  { name: "AMBER", hex: "#f59e0b" },
-  { name: "BROWN", hex: "#92400e" },
-  { name: "GRAY", hex: "#6b7280" },
-  { name: "MAGENTA", hex: "#d946ef" },
-  { name: "MAROON", hex: "#991b1b" },
-  { name: "NAVY", hex: "#1e3a8a" },
-  { name: "OLIVE", hex: "#4d7c0f" }
+  { name: "PINK", hex: "#ec4899" }
 ];
 
 const TOTAL_ROUNDS = 10;
